@@ -1,6 +1,7 @@
 export const RECEIVE_ORDERS = 'RECEIVE_ORDERS';
 export const RECEIVE_ORDER = 'RECEIVE_ORDER';
 export const REMOVE_ORDER = 'REMOVE_ORDER';
+export const SEND_ORDER = 'SEND_ORDER';
 
 export const receiveOrders = (orders) => {
   return {

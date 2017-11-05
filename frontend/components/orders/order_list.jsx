@@ -10,7 +10,7 @@ class OrderList extends React.Component {
       <OrderItem
         key={`order-${order.id}`}
         order={order}
-        removeOrder={removeOrder}>
+        receiveOrder={receiveOrder}>
       </OrderItem>
     ));
 

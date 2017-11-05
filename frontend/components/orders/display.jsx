@@ -1,16 +1,16 @@
 import React from 'react';
-import OrderItem from './order_item';
+import DisplayItem from './display_item';
 
 class Display extends React.Component {
   render () {
     const {orders, receiveOrders, receiveOrder, removeOrder} = this.props;
 
     const orderItems = orders.map(order => (
-      <OrderItem
+      <DisplayItem
         key={`order-${order.id}`}
         order={order}
         removeOrder={removeOrder}>
-      </OrderItem>
+      </DisplayItem>
     ));
 
     return (

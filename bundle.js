@@ -23505,6 +23505,10 @@ var _order_list_container = __webpack_require__(310);
 
 var _order_list_container2 = _interopRequireDefault(_order_list_container);
 
+var _navbar = __webpack_require__(359);
+
+var _navbar2 = _interopRequireDefault(_navbar);
+
 var _display_container = __webpack_require__(356);
 
 var _display_container2 = _interopRequireDefault(_display_container);
@@ -23519,11 +23523,7 @@ var App = function App() {
   return _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(
-      'h1',
-      { className: 'header' },
-      'BellyQueue'
-    ),
+    _react2.default.createElement(_navbar2.default, null),
     _react2.default.createElement(
       _reactRouter.Switch,
       null,
@@ -42807,7 +42807,7 @@ var OrderItem = function (_React$Component) {
       detail: false
     };
 
-    _this.handleDelete = _this.handleDelete.bind(_this);
+    _this.handleSend = _this.handleSend.bind(_this);
     _this.toggleDetail = _this.toggleDetail.bind(_this);
     return _this;
   }
@@ -42819,10 +42819,11 @@ var OrderItem = function (_React$Component) {
       this.setState({ detail: !this.state.detail });
     }
   }, {
-    key: 'handleDelete',
-    value: function handleDelete(e) {
+    key: 'handleSend',
+    value: function handleSend(e) {
       e.preventDefault();
-      this.props.removeOrder(this.props.order);
+      var sendOrder = Object.assign({}, this.props.order, { 'ready': 'true' });
+      this.props.receiveOrder(sendOrder);
     }
   }, {
     key: 'handleUpdate',
@@ -42872,7 +42873,7 @@ var OrderItem = function (_React$Component) {
             ),
             _react2.default.createElement(
               'button',
-              { onClick: this.handleDelete },
+              { onClick: this.handleSend },
               _react2.default.createElement('i', { className: 'fa fa-paper-plane fa-2x', 'aria-hidden': 'true' })
             )
           )
@@ -42990,7 +42991,8 @@ var OrderForm = function (_React$Component) {
       name: "",
       phone: "",
       timestamp: "",
-      items: []
+      items: {},
+      ready: "false"
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
@@ -43010,12 +43012,17 @@ var OrderForm = function (_React$Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
       var newOrder = Object.assign({}, this.state, { timestamp: (0, _util.getTimestamp)() });
-      this.props.receiveOrder(newOrder);
+
+      if (newOrder.name && newOrder.phone) {
+        this.props.receiveOrder(newOrder);
+      }
+
       this.setState({
         name: "",
         phone: "",
         timestamp: "",
-        items: []
+        items: {},
+        ready: "false"
       });
     }
   }, {
@@ -43044,7 +43051,7 @@ var OrderForm = function (_React$Component) {
         ),
         _react2.default.createElement(
           'button',
-          null,
+          { className: 'form-button' },
           'Queue Up'
         )
       );
@@ -43069,6 +43076,7 @@ Object.defineProperty(exports, "__esModule", {
 var RECEIVE_ORDERS = exports.RECEIVE_ORDERS = 'RECEIVE_ORDERS';
 var RECEIVE_ORDER = exports.RECEIVE_ORDER = 'RECEIVE_ORDER';
 var REMOVE_ORDER = exports.REMOVE_ORDER = 'REMOVE_ORDER';
+var SEND_ORDER = exports.SEND_ORDER = 'SEND_ORDER';
 
 var receiveOrders = exports.receiveOrders = function receiveOrders(orders) {
   return {
@@ -43146,8 +43154,8 @@ var ordersReducer = function ordersReducer() {
       });
       return nextState;
     case _order_actions.RECEIVE_ORDER:
-      var neworder = _defineProperty({}, action.order.id, action.order);
-      return (0, _merge2.default)({}, state, neworder);
+      var newOrder = _defineProperty({}, action.order.id, action.order);
+      return (0, _merge2.default)({}, state, newOrder);
     case _order_actions.REMOVE_ORDER:
       nextState = (0, _merge2.default)({}, state);
       delete nextState[action.order.id];
@@ -43195,9 +43203,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     receiveOrder: function receiveOrder(order) {
       return dispatch((0, _order_actions.receiveOrder)(order));
-    },
-    removeOrder: function removeOrder(order) {
-      return dispatch((0, _order_actions.removeOrder)(order));
     }
   };
 };
@@ -43260,7 +43265,7 @@ var OrderList = function (_React$Component) {
         return _react2.default.createElement(_order_item2.default, {
           key: 'order-' + order.id,
           order: order,
-          removeOrder: removeOrder });
+          receiveOrder: receiveOrder });
       });
 
       return _react2.default.createElement(
@@ -47688,9 +47693,9 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _order_item = __webpack_require__(304);
+var _display_item = __webpack_require__(358);
 
-var _order_item2 = _interopRequireDefault(_order_item);
+var _display_item2 = _interopRequireDefault(_display_item);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47720,7 +47725,7 @@ var Display = function (_React$Component) {
 
 
       var orderItems = orders.map(function (order) {
-        return _react2.default.createElement(_order_item2.default, {
+        return _react2.default.createElement(_display_item2.default, {
           key: 'order-' + order.id,
           order: order,
           removeOrder: removeOrder });
@@ -47746,6 +47751,197 @@ var Display = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Display;
+
+/***/ }),
+/* 358 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _merge = __webpack_require__(105);
+
+var _merge2 = _interopRequireDefault(_merge);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DisplayItem = function (_React$Component) {
+  _inherits(DisplayItem, _React$Component);
+
+  function DisplayItem(props) {
+    _classCallCheck(this, DisplayItem);
+
+    var _this = _possibleConstructorReturn(this, (DisplayItem.__proto__ || Object.getPrototypeOf(DisplayItem)).call(this, props));
+
+    _this.state = {
+      detail: false
+    };
+
+    _this.handleRemove = _this.handleRemove.bind(_this);
+    return _this;
+  }
+
+  _createClass(DisplayItem, [{
+    key: 'handleRemove',
+    value: function handleRemove(e) {
+      e.preventDefault();
+      this.props.removeOrder(this.props.order);
+    }
+  }, {
+    key: 'handleUpdate',
+    value: function handleUpdate(e) {
+      e.preventDefault();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          order = _props.order,
+          removeOrder = _props.removeOrder;
+
+
+      return _react2.default.createElement(
+        'li',
+        { className: 'order-item-container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'order-item-links' },
+          _react2.default.createElement(
+            'div',
+            { className: 'order-detail-button' },
+            order.timestamp,
+            '\xA0',
+            order.name
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'order-item-actions' },
+            _react2.default.createElement(
+              'button',
+              { onClick: this.handleUpdate },
+              _react2.default.createElement('i', { className: 'fa fa-pencil fa-2x', 'aria-hidden': 'true' })
+            ),
+            _react2.default.createElement(
+              'button',
+              { onClick: this.handleRemove },
+              _react2.default.createElement('i', { className: 'fa fa-paper-plane fa-2x', 'aria-hidden': 'true' })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return DisplayItem;
+}(_react2.default.Component);
+
+exports.default = DisplayItem;
+
+/***/ }),
+/* 359 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(332);
+
+var _display_container = __webpack_require__(356);
+
+var _display_container2 = _interopRequireDefault(_display_container);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NavBar = function (_React$Component) {
+  _inherits(NavBar, _React$Component);
+
+  function NavBar(props) {
+    _classCallCheck(this, NavBar);
+
+    var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+    _this.handleSelect = _this.handleSelect.bind(_this);
+    return _this;
+  }
+
+  _createClass(NavBar, [{
+    key: 'handleSelect',
+    value: function handleSelect(property) {
+      var links = document.querySelectorAll('.link');
+      links.forEach(function (link) {
+        return link.classList.remove('selected');
+      });
+
+      var selectedlink = document.querySelector('.' + property);
+      // link.classList.add('selected');
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'nav',
+        { className: 'navbar' },
+        _react2.default.createElement(
+          'h1',
+          { className: 'header' },
+          'BellyQueue'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          {
+            to: '/',
+            className: 'link waitlist',
+            onClick: this.handleSelect('waitlist') },
+          'Waitlist'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          {
+            to: '/display',
+            className: 'link display',
+            onClick: this.handleSelect('display') },
+          'Orders'
+        )
+      );
+    }
+  }]);
+
+  return NavBar;
+}(_react2.default.Component);
+
+exports.default = NavBar;
 
 /***/ })
 /******/ ]);
