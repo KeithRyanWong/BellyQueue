@@ -1,13 +1,13 @@
 import React from 'react';
-import { connect } from ‘react-redux’;
-import OrderListContainer from ‘./orders/order_list_container’;
-import MenuContainer from ‘./menu/menu_container’;
-import NavBar from ‘./orders/navbar’;
-import DisplayContainer from ‘./orders/display_container’;
-import { Switch, Route, withRouter } from ‘react-router’;
-import { Link } from ‘react-router-dom’;
-import { receiveUser } from ‘../actions/user_actions’;
-// import { HashRouter } from ‘react-router-dom’;
+import { connect } from 'react-redux';
+import OrderListContainer from './orders/order_list_container';
+import MenuContainer from './menu/menu_container';
+import NavBar from './orders/navbar';
+import DisplayContainer from './orders/display_container';
+import { Switch, Route, withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import { receiveUser } from '../actions/user_actions';
+// import { HashRouter } from 'react-router-dom';
 
 class App extends React.Component {
  constructor(props) {
@@ -31,7 +31,7 @@ class App extends React.Component {
  }
 
  renderApp() {
-   if(this.state.user == “merchant” && this.state.login) {
+   if(this.state.user == "merchant" && this.state.login) {
      return (<MerchantLogin login={this.login}/>);
    } else if (this.state.user) {
      return (<AppView user={this.state.user}/>);
@@ -47,13 +47,13 @@ class App extends React.Component {
      login: true,
    });
 
-   this.props.login(“merchant”);
+   this.props.login("merchant");
  }
 
  goToCustomerView(e) {
    e.preventDefault();
 
-   this.props.login(“customer”);
+   this.props.login("customer");
  }
 
  login(e) {
@@ -86,16 +86,16 @@ const AppView = ({user}) => (
    <div>
      <NavBar user={user}/>
      <Switch>
-       <Route path=“/menu” component={MenuContainer}/>
-       <Route path=‘/display’ component={DisplayContainer}/>
+       <Route path="/menu" component={MenuContainer}/>
+       <Route path='/display' component={DisplayContainer}/>
        (<Route component={OrderListContainer}/>)
      </Switch>
    </div>
 );
 
 const Login = ( {goToMerchantLogin, goToCustomerView }) => (
- <div className=“login-screen”>
-   <div className=“login-buttons”>
+ <div className="login-screen">
+   <div className="login-buttons">
      <button onClick={goToMerchantLogin}>Merchant</button>
      <button onClick={goToCustomerView}>Customer</button>
    </div>
@@ -103,10 +103,10 @@ const Login = ( {goToMerchantLogin, goToCustomerView }) => (
 );
 
 const MerchantLogin = ({login}) => (
- <div className=“login-screen”>
-   <div className=“login-form”>
+ <div className="login-screen">
+   <div className="login-form">
      <div>Password</div>
-     <input type=“password” placeholder=“*********“/>
+     <input type="password" placeholder="*********"/>
      <button onClick={login}>Login</button>
    </div>
  </div>
