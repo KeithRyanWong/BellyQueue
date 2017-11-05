@@ -29110,6 +29110,10 @@ var _menu_list_container = __webpack_require__(228);
 
 var _menu_list_container2 = _interopRequireDefault(_menu_list_container);
 
+var _menu_login_container = __webpack_require__(232);
+
+var _menu_login_container2 = _interopRequireDefault(_menu_login_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Menu = function Menu() {
@@ -29120,11 +29124,7 @@ var Menu = function Menu() {
     _react2.default.createElement(
       'div',
       { className: 'menu-side-panel' },
-      _react2.default.createElement(
-        'div',
-        { className: 'menu-login' },
-        'HERE\'S THE LOGIN'
-      ),
+      _react2.default.createElement(_menu_login_container2.default, null),
       _react2.default.createElement(
         'div',
         { className: 'menu-total' },
@@ -31890,6 +31890,139 @@ var MenuItem = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = MenuItem;
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(37);
+
+var _menu_login = __webpack_require__(233);
+
+var _menu_login2 = _interopRequireDefault(_menu_login);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    // pass down dispatch from menu total container
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_menu_login2.default);
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MenuLogin = function (_React$Component) {
+  _inherits(MenuLogin, _React$Component);
+
+  function MenuLogin(props) {
+    _classCallCheck(this, MenuLogin);
+
+    var _this = _possibleConstructorReturn(this, (MenuLogin.__proto__ || Object.getPrototypeOf(MenuLogin)).call(this, props));
+
+    _this.state = {
+      phoneNumber: ''
+    };
+
+    _this.submitOrder = _this.submitOrder.bind(_this);
+    _this.handleInput = _this.handleInput.bind(_this);
+    return _this;
+  }
+
+  _createClass(MenuLogin, [{
+    key: 'submitOrder',
+    value: function submitOrder(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (!this.state.phoneNumber) {
+        alert('Please enter phone number to submit order');
+        return;
+      } else {
+        // send order to backend
+
+        this.setState({
+          phoneNumber: ''
+        });
+      }
+    }
+  }, {
+    key: 'handleInput',
+    value: function handleInput(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      var phoneNumber = this.state.phoneNumber;
+
+      phoneNumber = e.currentTarget.value;
+
+      this.setState({
+        phoneNumber: phoneNumber
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var phoneNumber = this.state.phoneNumber;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'menu-login' },
+        _react2.default.createElement(
+          'div',
+          { className: 'menu-form' },
+          _react2.default.createElement(
+            'div',
+            null,
+            'Phone Number'
+          ),
+          _react2.default.createElement('input', { name: 'phoneNumber', type: 'text', onChange: this.handleInput, placeholder: '+8881231234', value: phoneNumber })
+        ),
+        _react2.default.createElement('input', { type: 'submit', onClick: this.submitOrder, value: 'Submit Order' })
+      );
+    }
+  }]);
+
+  return MenuLogin;
+}(_react2.default.Component);
+
+exports.default = MenuLogin;
 
 /***/ })
 /******/ ]);

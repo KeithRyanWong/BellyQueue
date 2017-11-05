@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import MenuLogin from './menu_login';
+import MenuTotal from './menu_total';
 
 const mapStateToProps = (state) => ({
-// pass down dispatch from menu total container
+  
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -12,4 +12,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MenuLogin);
+)(MenuTotal);
