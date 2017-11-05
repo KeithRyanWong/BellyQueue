@@ -16,11 +16,15 @@ class OrderList extends React.Component {
 
     return (
       <div className="order-container">
-        Avg wait time is currently {orderItems.length * 5} min.
-        <ul className="order-list">{orderItems}</ul>
-        <OrderForm
-          receiveOrder={receiveOrder}>
-        </OrderForm>
+        <div className="order-list-container">
+          <h3 className="order-time">Avg wait time is currently {orderItems.length * 5} min.</h3>
+          <ul className="order-list">{orderItems}</ul>
+        </div>
+        <div className="order-form-container">
+          <OrderForm
+            receiveOrder={receiveOrder}>
+          </OrderForm>
+        </div>
       </div>
     );
   }

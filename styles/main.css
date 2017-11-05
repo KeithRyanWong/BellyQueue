@@ -6,8 +6,16 @@
 .order-container {
   border: 5px solid grey;
   display: flex;
+  justify-content: space-between;
 }
 
+.order-list-container {
+  flex: 7
+}
+
+.order-form-container {
+  flex: 3
+}
 .order-form {
   border: 5px solid grey;
   flex: 1;

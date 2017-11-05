@@ -42754,9 +42754,9 @@ var _merge = __webpack_require__(105);
 
 var _merge2 = _interopRequireDefault(_merge);
 
-var _order_detail_container = __webpack_require__(305);
+var _order_detail = __webpack_require__(306);
 
-var _order_detail_container2 = _interopRequireDefault(_order_detail_container);
+var _order_detail2 = _interopRequireDefault(_order_detail);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42778,6 +42778,7 @@ var OrderItem = function (_React$Component) {
       detail: false
     };
 
+    _this.handleDelete = _this.handleDelete.bind(_this);
     _this.toggleDetail = _this.toggleDetail.bind(_this);
     return _this;
   }
@@ -42789,26 +42790,43 @@ var OrderItem = function (_React$Component) {
       this.setState({ detail: !this.state.detail });
     }
   }, {
+    key: 'handleDelete',
+    value: function handleDelete(e) {
+      e.preventDefault();
+      this.props.removeOrder(this.props.order);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var detail = void 0;
       if (this.state.detail) {
-        detail = _react2.default.createElement(_order_detail_container2.default, { order: this.props.order });
+        detail = _react2.default.createElement(_order_detail2.default, { order: this.props.order });
       }
 
-      var order = this.props.order;
+      var _props = this.props,
+          order = _props.order,
+          removeOrder = _props.removeOrder;
 
 
       return _react2.default.createElement(
         'li',
         { className: 'order-item' },
         _react2.default.createElement(
-          'button',
-          {
-            className: 'order-detail-button',
-            onClick: this.toggleDetail },
-          order.name,
-          order.timestamp
+          'div',
+          null,
+          _react2.default.createElement(
+            'button',
+            {
+              className: 'order-detail-button',
+              onClick: this.toggleDetail },
+            order.name,
+            order.timestamp
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: this.handleDelete },
+            'Send to Kitchen'
+          )
         ),
         detail
       );
@@ -42821,38 +42839,7 @@ var OrderItem = function (_React$Component) {
 exports.default = OrderItem;
 
 /***/ }),
-/* 305 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(61);
-
-var _order_detail = __webpack_require__(306);
-
-var _order_detail2 = _interopRequireDefault(_order_detail);
-
-var _order_actions = __webpack_require__(308);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
-  var order = _ref.order;
-  return {
-    removeOrder: function removeOrder() {
-      return dispatch((0, _order_actions.removeOrder)(order));
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(_order_detail2.default);
-
-/***/ }),
+/* 305 */,
 /* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42889,9 +42876,7 @@ var OrderDetail = function (_React$Component) {
   _createClass(OrderDetail, [{
     key: "render",
     value: function render() {
-      var _props = this.props,
-          order = _props.order,
-          removeOrder = _props.removeOrder;
+      var order = this.props.order;
 
       return _react2.default.createElement(
         "div",
@@ -42905,11 +42890,6 @@ var OrderDetail = function (_React$Component) {
           "p",
           null,
           order.order
-        ),
-        _react2.default.createElement(
-          "button",
-          { onClick: removeOrder },
-          "Send to Kitchen"
         )
       );
     }
@@ -43235,16 +43215,28 @@ var OrderList = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'order-container' },
-        'Avg wait time is currently ',
-        orderItems.length * 5,
-        ' min.',
         _react2.default.createElement(
-          'ul',
-          { className: 'order-list' },
-          orderItems
+          'div',
+          { className: 'order-list-container' },
+          _react2.default.createElement(
+            'h3',
+            { className: 'order-time' },
+            'Avg wait time is currently ',
+            orderItems.length * 5,
+            ' min.'
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'order-list' },
+            orderItems
+          )
         ),
-        _react2.default.createElement(_order_form2.default, {
-          receiveOrder: receiveOrder })
+        _react2.default.createElement(
+          'div',
+          { className: 'order-form-container' },
+          _react2.default.createElement(_order_form2.default, {
+            receiveOrder: receiveOrder })
+        )
       );
     }
   }]);

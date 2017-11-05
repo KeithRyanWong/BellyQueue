@@ -1,6 +1,6 @@
 import React from 'react';
 import merge from 'lodash/merge';
-import OrderDetailContainer from './order_detail_container';
+import OrderDetail from './order_detail';
 
 class OrderItem extends React.Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class OrderItem extends React.Component {
       detail: false
     };
 
+    this.handleDelete = this.handleDelete.bind(this);
     this.toggleDetail = this.toggleDetail.bind(this);
   }
 
@@ -18,22 +19,30 @@ class OrderItem extends React.Component {
     this.setState({ detail: !this.state.detail });
   }
 
+  handleDelete(e) {
+    e.preventDefault();
+    this.props.removeOrder(this.props.order);
+  }
+
   render() {
     let detail;
     if (this.state.detail) {
-      detail = <OrderDetailContainer order={this.props.order}/>;
+      detail = <OrderDetail order={this.props.order}/>;
     }
 
-    const {order} = this.props;
+    const {order, removeOrder} = this.props;
 
     return (
       <li className="order-item">
-        <button
-          className="order-detail-button"
-          onClick={this.toggleDetail}>
-          {order.name}
-          {order.timestamp}
-        </button>
+        <div>
+          <button
+            className="order-detail-button"
+            onClick={this.toggleDetail}>
+            {order.name}
+            {order.timestamp}
+          </button>
+          <button onClick={this.handleDelete}>Send to Kitchen</button>
+        </div>
         {detail}
       </li>
     );
