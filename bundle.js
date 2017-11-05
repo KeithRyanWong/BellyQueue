@@ -42844,7 +42844,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
   var order = _ref.order;
   return {
-    removeorder: function removeorder() {
+    removeOrder: function removeOrder() {
       return dispatch((0, _order_actions.removeOrder)(order));
     }
   };
@@ -43041,21 +43041,21 @@ var RECEIVE_ORDERS = exports.RECEIVE_ORDERS = 'RECEIVE_ORDERS';
 var RECEIVE_ORDER = exports.RECEIVE_ORDER = 'RECEIVE_ORDER';
 var REMOVE_ORDER = exports.REMOVE_ORDER = 'REMOVE_ORDER';
 
-var receiveorders = exports.receiveorders = function receiveorders(orders) {
+var receiveOrders = exports.receiveOrders = function receiveOrders(orders) {
   return {
     type: RECEIVE_ORDERS,
     orders: orders
   };
 };
 
-var receiveorder = exports.receiveorder = function receiveorder(order) {
+var receiveOrder = exports.receiveOrder = function receiveOrder(order) {
   return {
     type: RECEIVE_ORDER,
     order: order
   };
 };
 
-var removeorder = exports.removeorder = function removeorder(order) {
+var removeOrder = exports.removeOrder = function removeOrder(order) {
   return {
     type: REMOVE_ORDER,
     order: order
