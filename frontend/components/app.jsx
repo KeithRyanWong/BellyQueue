@@ -4,9 +4,10 @@ import OrderListContainer from './orders/order_list_container';
 import MenuContainer from './menu/menu_container';
 import NavBar from './orders/navbar';
 import DisplayContainer from './orders/display_container';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { receiveUser } from '../actions/user_actions';
+// import { HashRouter } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class App extends React.Component {
     if(this.state.user == "merchant" && this.state.login) {
       return (<MerchantLogin login={this.login}/>);
     } else if (this.state.user) {
-      return (<AppView />);
+      return (<AppView user={this.state.user}/>);
     } else {
       return (<Login goToCustomerView={this.goToCustomerView} goToMerchantLogin={this.goToMerchantLogin}/>);
     }
@@ -76,20 +77,20 @@ const mapDispatchToProps = (dispatch) => ({
   login: (user) => dispatch(receiveUser(user)),
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(App));
 
-const AppView = () => (
-  <div>
-    <NavBar />
-    <Switch>
-      <Route path="/menu" component={MenuContainer}/>
-      <Route path='/display' component={DisplayContainer}/>
-      <Route component={OrderListContainer}/>
-    </Switch>
-  </div>
+const AppView = ({user}) => (
+    <div>
+      <NavBar user={user}/>
+      <Switch>
+        <Route path="/menu" component={MenuContainer}/>
+        <Route path='/display' component={DisplayContainer}/>
+        (<Route component={OrderListContainer}/>)
+      </Switch>
+    </div>
 );
 
 const Login = ( {goToMerchantLogin, goToCustomerView }) => (

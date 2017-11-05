@@ -28820,6 +28820,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// import { HashRouter } from 'react-router-dom';
+
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -28853,7 +28855,7 @@ var App = function (_React$Component) {
       if (this.state.user == "merchant" && this.state.login) {
         return _react2.default.createElement(MerchantLogin, { login: this.login });
       } else if (this.state.user) {
-        return _react2.default.createElement(AppView, null);
+        return _react2.default.createElement(AppView, { user: this.state.user });
       } else {
         return _react2.default.createElement(Login, { goToCustomerView: this.goToCustomerView, goToMerchantLogin: this.goToMerchantLogin });
       }
@@ -28909,27 +28911,30 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
+exports.default = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App));
 
 
-var AppView = function AppView() {
+var AppView = function AppView(_ref) {
+  var user = _ref.user;
   return _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(_navbar2.default, null),
+    _react2.default.createElement(_navbar2.default, { user: user }),
     _react2.default.createElement(
       _reactRouter.Switch,
       null,
       _react2.default.createElement(_reactRouter.Route, { path: '/menu', component: _menu_container2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '/display', component: _display_container2.default }),
-      _react2.default.createElement(_reactRouter.Route, { component: _order_list_container2.default })
+      '(',
+      _react2.default.createElement(_reactRouter.Route, { component: _order_list_container2.default }),
+      ')'
     )
   );
 };
 
-var Login = function Login(_ref) {
-  var goToMerchantLogin = _ref.goToMerchantLogin,
-      goToCustomerView = _ref.goToCustomerView;
+var Login = function Login(_ref2) {
+  var goToMerchantLogin = _ref2.goToMerchantLogin,
+      goToCustomerView = _ref2.goToCustomerView;
   return _react2.default.createElement(
     'div',
     { className: 'login-screen' },
@@ -28950,8 +28955,8 @@ var Login = function Login(_ref) {
   );
 };
 
-var MerchantLogin = function MerchantLogin(_ref2) {
-  var login = _ref2.login;
+var MerchantLogin = function MerchantLogin(_ref3) {
+  var login = _ref3.login;
   return _react2.default.createElement(
     'div',
     { className: 'login-screen' },
@@ -30291,6 +30296,15 @@ var NavBar = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var menuLink = this.props.user === "merchant" ? '' : _react2.default.createElement(
+        _reactRouterDom.Link,
+        {
+          to: '/menu',
+          className: 'link display',
+          onClick: this.handleSelect('menu') },
+        'Menu'
+      );
+
       return _react2.default.createElement(
         'nav',
         { className: 'navbar' },
@@ -30315,14 +30329,7 @@ var NavBar = function (_React$Component) {
             onClick: this.handleSelect('display') },
           'Orders'
         ),
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          {
-            to: '/menu',
-            className: 'link display',
-            onClick: this.handleSelect('menu') },
-          'Menu'
-        )
+        menuLink
       );
     }
   }]);

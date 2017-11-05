@@ -19,6 +19,14 @@ class NavBar extends React.Component {
 
 
   render() {
+    let menuLink = this.props.user === "merchant" ? '' : 
+      (<Link
+        to='/menu'
+        className="link display"
+        onClick={this.handleSelect('menu')}>
+        Menu
+      </Link>);
+
     return(
       <nav className="navbar">
         <h1 className="header">BellyQueue</h1>
@@ -34,12 +42,7 @@ class NavBar extends React.Component {
           onClick={this.handleSelect('display')}>
           Orders
         </Link>
-        <Link
-          to='/menu'
-          className="link display"
-          onClick={this.handleSelect('menu')}>
-          Menu
-        </Link>
+        {menuLink}
       </nav>
     );
   }
