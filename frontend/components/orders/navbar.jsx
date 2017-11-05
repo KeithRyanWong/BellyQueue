@@ -34,6 +34,12 @@ class NavBar extends React.Component {
           onClick={this.handleSelect('display')}>
           Orders
         </Link>
+        <Link
+          to='/menu'
+          className="link display"
+          onClick={this.handleSelect('menu')}>
+          Menu
+        </Link>
       </nav>
     );
   }
