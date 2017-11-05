@@ -1,1 +1,1 @@
-export const allPreorders = ({preorders}) => Object.keys(preorders).map(id => preorders[id]);
+export const allOrders = ({orders}) => Object.keys(orders).map(id => orders[id]);

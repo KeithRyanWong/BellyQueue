@@ -1,8 +1,8 @@
 import React from 'react';
 import merge from 'lodash/merge';
-import PreorderDetailContainer from './preorder_detail_container';
+import OrderDetailContainer from './order_detail_container';
 
-class PreorderItem extends React.Component {
+class OrderItem extends React.Component {
   constructor(props) {
     super(props);
 
@@ -21,15 +21,18 @@ class PreorderItem extends React.Component {
   render() {
     let detail;
     if (this.state.detail) {
-      detail = <PreorderDetailContainer preorder={this.props.preorder}/>;
+      detail = <OrderDetailContainer order={this.props.order}/>;
     }
 
-    const {preorder} = this.props;
-    
+    const {order} = this.props;
+
     return (
-      <li>
-        <button onClick={this.toggleDetail}>
-          {preorder.name}&nbsp;{preorder.phone}&nbsp;{preorder.timestamp}
+      <li className="order-item">
+        <button
+          className="order-detail-button"
+          onClick={this.toggleDetail}>
+          {order.name}
+          {order.timestamp}
         </button>
         {detail}
       </li>
@@ -37,4 +40,4 @@ class PreorderItem extends React.Component {
   }
 }
 
-export default PreorderItem;
+export default OrderItem;

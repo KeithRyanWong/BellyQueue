@@ -1,10 +1,10 @@
 import React from 'react';
-import PreordersContainer from './preorders/preorders_container';
+import OrderListContainer from './orders/order_list_container';
 
 const App = () => (
   <div>
-    <h1>BellyQueue</h1>
-    <PreordersContainer />
+    <h1 className="header">BellyQueue</h1>
+    <OrderListContainer />
   </div>
 );
 

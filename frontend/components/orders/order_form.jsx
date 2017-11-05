@@ -1,7 +1,7 @@
 import React from 'react';
 import {getTimestamp} from '../../util/util';
 
-class PreorderForm extends React.Component {
+class OrderForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,8 +19,8 @@ class PreorderForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newPreorder = Object.assign({}, this.state, {timestamp: getTimestamp()});
-    this.props.receivePreorder(newPreorder);
+    const newOrder = Object.assign({}, this.state, {timestamp: getTimestamp()});
+    this.props.receiveOrder(newOrder);
     this.setState({
       name: "",
       phone: "",
@@ -31,7 +31,9 @@ class PreorderForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form
+        className="order-form"
+        onSubmit={this.handleSubmit}>
         <label>Name:
           <input
             value={this.state.name}
@@ -51,4 +53,4 @@ class PreorderForm extends React.Component {
   }
 }
 
-export default PreorderForm;
+export default OrderForm;
