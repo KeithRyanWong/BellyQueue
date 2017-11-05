@@ -5,7 +5,7 @@ import { HashRouter } from 'react-router-dom';
 
 const Root = ({store}) => (
   <Provider store={store}>
-    <HashRouter basename="/getinmahbelly">
+    <HashRouter>
       <App />
     </HashRouter>
   </Provider>

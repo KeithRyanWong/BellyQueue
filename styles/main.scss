@@ -1,0 +1,21 @@
+.app {
+	font-family: 'Roboto', serif;
+}
+
+.navbar {
+	position: relative;
+	z-index: 3;
+
+	display: flex;
+	justify-content: flex-start;
+	font-family: 'Roboto slab', serif;
+	font-weight: bold;
+}
+
+.navbar > * {
+  display: flex;
+  font-size: 30px;
+	margin: 10px;
+  padding: 20px;
+	text-decoration: none;
+}

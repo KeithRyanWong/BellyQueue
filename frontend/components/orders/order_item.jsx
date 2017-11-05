@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import merge from 'lodash/merge';
-import OrderDetailContainer from './order_detail_container';
+import OrderDetail from './order_detail';
+import { withRouter } from 'react-router';
+import { loginOrder } from '../../actions/current_order_actions';
 
 class OrderItem extends React.Component {
   constructor(props) {
@@ -10,7 +13,10 @@ class OrderItem extends React.Component {
       detail: false
     };
 
+    this.handleSend = this.handleSend.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.toggleDetail = this.toggleDetail.bind(this);
+    this.renderItem = this.renderItem.bind(this);
   }
 
   toggleDetail(e) {
@@ -18,26 +24,78 @@ class OrderItem extends React.Component {
     this.setState({ detail: !this.state.detail });
   }
 
+  handleSend(e) {
+    e.preventDefault();
+    const sendOrder = Object.assign({}, this.props.order, {'ready': 'true'});
+    this.props.receiveOrder(sendOrder);
+  }
+
+  handleUpdate(e) {
+    e.preventDefault();
+    const {order} = this.props;
+    this.props.login(order.phone);
+    this.props.history.push('/menu');
+  }
+
   render() {
+    const {order, menu, removeOrder} = this.props;
+
     let detail;
     if (this.state.detail) {
-      detail = <OrderDetailContainer order={this.props.order}/>;
+      detail = <OrderDetail order={order} menu={menu}/>;
     }
 
-    const {order} = this.props;
-
     return (
-      <li className="order-item">
-        <button
-          className="order-detail-button"
-          onClick={this.toggleDetail}>
-          {order.name}
-          {order.timestamp}
-        </button>
+      <li className="order-item-container">
+        {this.renderItem()}
         {detail}
       </li>
     );
   }
+
+  renderItem() {
+    const {order, menu, removeOrder} = this.props;
+    return this.props.user == 'customer' ? 
+      (<div className="order-item-links">
+        <div className="order-detail-button">
+          {order.timestamp}
+          &nbsp;
+          {order.name}
+          &nbsp;
+        </div>
+      </div>) :
+      (<div className="order-item-links">
+        <div className="order-detail-button">
+          {order.timestamp}
+          &nbsp;
+          {order.name}
+          &nbsp;
+          <button
+            onClick={this.toggleDetail}>
+            <i className="fa fa-chevron-down fa-lg" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div className="order-item-actions">
+          <button onClick={this.handleUpdate}>
+            <i className="fa fa-pencil fa-2x" aria-hidden="true"></i>
+          </button>
+          <button onClick={this.handleSend}>
+            <i className="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>);
+  }
 }
 
-export default OrderItem;
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (number) => dispatch(loginOrder(number))
+});
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OrderItem));
