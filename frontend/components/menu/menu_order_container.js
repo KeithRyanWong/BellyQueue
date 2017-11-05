@@ -1,16 +1,17 @@
 import { connect } from 'react-redux';
-import MenuLogin from './menu_login';
-import { loginOrder } from '../../actions/current_order_actions';
+import MenuOrder from './menu_order';
+import { findOrder } from '../../reducers/selectors';
 
 const mapStateToProps = (state) => ({
 // pass down dispatch from menu total container
+  order: findOrder(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loginOrder: (phone) => dispatch(loginOrder(phone)),
+
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MenuLogin);
+)(MenuOrder);

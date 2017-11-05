@@ -8,23 +8,19 @@ class MenuLogin extends React.Component {
       phoneNumber: '',
     };
 
-    this.submitOrder = this.submitOrder.bind(this);
+    this.login = this.login.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
-  submitOrder(e) {
+  login(e) {
     e.preventDefault();
     e.stopPropagation();
 
     if(!this.state.phoneNumber) {
-      alert('Please enter phone number to submit order');
+      alert('Phone number not in queue!');
       return;
     } else {
-      // send order to backend
-
-      this.setState({
-        phoneNumber: ''
-      });
+      this.props.loginOrder(this.state.phoneNumber);
     }
   }
 
@@ -46,10 +42,11 @@ class MenuLogin extends React.Component {
     return (
       <div className="menu-login">
         <div className="menu-form">
+          <div>Please queue up at the front desk before signing in to pre-order</div>
           <div>Phone Number</div>
-          <input name="phoneNumber" type="text" onChange={this.handleInput} placeholder="+8881231234" value={phoneNumber}/>
+          <input name="phoneNumber" type="text" onChange={this.handleInput} placeholder="8881231234" value={phoneNumber}/>
         </div>
-        <input type="submit" onClick={this.submitOrder} value="Submit Order"/>
+        <input type="submit" onClick={this.login} value="Show me the foodz!"/>
       </div>
     );
   }

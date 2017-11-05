@@ -1,4 +1,4 @@
-import { RECEIVE_ORDER } from '../actions/current_order_actions.js';
+import { LOGIN, LOGOUT } from '../actions/current_order_actions.js';
 import merge from 'lodash/merge';
 
 const initialState = {
@@ -18,8 +18,10 @@ const initialState = {
 
 const ordersReducer = (state = initialState, action) => {
   switch(action.type) {
-    case RECEIVE_ORDER:
+    case LOGIN:
       return { phone: action.phone };
+    case LOGOUT:
+      return { phone: '' };
     default:
       return state;
   }

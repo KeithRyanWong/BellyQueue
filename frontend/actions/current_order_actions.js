@@ -1,9 +1,16 @@
 
-export const RECEIVE_ORDER = 'RECEIVE_ORDER';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
-export const receiveOrder = (phone) => {
+export const loginOrder = (phone) => {
   return {
-    type: RECEIVE_ORDER,
+    type: LOGIN,
     phone,
+  };
+};
+
+export const logoutOrder = () => {
+  return {
+    type: LOGOUT
   };
 };
