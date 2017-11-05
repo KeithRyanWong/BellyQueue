@@ -30,12 +30,12 @@ class OrderItem extends React.Component {
   }
 
   render() {
+    const {order, menu, removeOrder} = this.props;
+
     let detail;
     if (this.state.detail) {
-      detail = <OrderDetail order={this.props.order}/>;
+      detail = <OrderDetail order={order} menu={menu}/>;
     }
-
-    const {order, removeOrder} = this.props;
 
     return (
       <li className="order-item-container">
@@ -47,7 +47,7 @@ class OrderItem extends React.Component {
             &nbsp;
             <button
               onClick={this.toggleDetail}>
-              <i className="fa fa-chevron-down fa-2x" aria-hidden="true"></i>
+              <i className="fa fa-chevron-down fa-lg" aria-hidden="true"></i>
             </button>
           </div>
           <div className="order-item-actions">

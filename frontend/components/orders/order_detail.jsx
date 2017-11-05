@@ -1,4 +1,6 @@
 import React from 'react';
+import {parseOrder} from '../../reducers/selectors';
+import OrderItemDetail from './order_item_detail';
 
 class OrderDetail extends React.Component {
   constructor(props) {
@@ -6,6 +8,19 @@ class OrderDetail extends React.Component {
   }
 
   render() {
+    const parsed = parseOrder(this.props.order.items, this.props.menu);
+
+    const items =
+      Object.keys(parsed)
+        .map(item => (
+          <OrderItemDetail
+            key={item}
+            item={item}
+            quantity={parsed[item]}>
+          </OrderItemDetail>
+        )
+      );
+
     return (
       <div className="order-detail">
         <div className="detail-phone">
@@ -14,7 +29,7 @@ class OrderDetail extends React.Component {
           {this.props.order.phone}
         </div>
         <div className="detail-order">
-          {this.props.order.items}
+          <ul className="item-detail-container">{items}</ul>
         </div>
       </div>
     );

@@ -3,9 +3,9 @@ import OrderList from './order_list';
 import {allPreOrders} from '../../reducers/selectors';
 import {receiveOrders, receiveOrder} from '../../actions/order_actions';
 
-const mapStateToProps = state => ({
-  orders: allPreOrders(state)
-});
+const mapStateToProps = state => {
+  return {orders: allPreOrders(state), menu: state.menu};
+};
 
 const mapDispatchToProps = dispatch => ({
   receiveOrders: (orders) => dispatch(receiveOrders(orders)),

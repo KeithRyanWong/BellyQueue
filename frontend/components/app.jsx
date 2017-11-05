@@ -7,7 +7,7 @@ import { Switch, Route } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const App = () => (
-  <div>
+  <div className="app">
     <NavBar />
     <Switch>
       <Route path="/menu" component={MenuContainer}/>

@@ -3,13 +3,14 @@ import DisplayItem from './display_item';
 
 class Display extends React.Component {
   render () {
-    const {orders, receiveOrders, receiveOrder, removeOrder} = this.props;
+    const {orders, menu, receiveOrders, receiveOrder, removeOrder} = this.props;
 
     const orderItems = orders.map(order => (
       <DisplayItem
         key={`order-${order.id}`}
         order={order}
-        removeOrder={removeOrder}>
+        removeOrder={removeOrder}
+        menu={menu}>
       </DisplayItem>
     ));
 
