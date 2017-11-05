@@ -27,6 +27,14 @@ class NavBar extends React.Component {
         Menu
       </Link>);
 
+    let displayLink = this.props.user === "customer" ? '' :
+      (<Link
+        to='/display'
+        className="link display"
+        onClick={this.handleSelect('display')}>
+        Orders
+      </Link>);
+
     return(
       <nav className="navbar">
         <h1 className="header">BellyQueue</h1>
@@ -36,12 +44,7 @@ class NavBar extends React.Component {
           onClick={this.handleSelect('waitlist')}>
           Waitlist
         </Link>
-        <Link
-          to='/display'
-          className="link display"
-          onClick={this.handleSelect('display')}>
-          Orders
-        </Link>
+        {displayLink}
         {menuLink}
       </nav>
     );

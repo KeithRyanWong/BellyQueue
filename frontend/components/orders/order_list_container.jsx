@@ -4,7 +4,7 @@ import {allPreOrders} from '../../reducers/selectors';
 import {receiveOrders, receiveOrder} from '../../actions/order_actions';
 
 const mapStateToProps = state => {
-  return {orders: allPreOrders(state), menu: state.menu};
+  return {orders: allPreOrders(state), menu: state.menu, user: state.user.current};
 };
 
 const mapDispatchToProps = dispatch => ({

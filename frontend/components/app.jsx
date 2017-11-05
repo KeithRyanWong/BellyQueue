@@ -88,7 +88,7 @@ const AppView = ({user}) => (
      <Switch>
        <Route path="/menu" component={MenuContainer}/>
        <Route path='/display' component={DisplayContainer}/>
-       (<Route component={OrderListContainer}/>)
+       <Route component={OrderListContainer}/>
      </Switch>
    </div>
 );
