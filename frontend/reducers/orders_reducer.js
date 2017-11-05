@@ -7,14 +7,16 @@ const initialState = {
     name: 'Chuck Woodchuck',
     phone: '1234567890',
     timestamp: '5:00PM',
-    order: [['burger', 2], ['fries', 1], ['coke', 1]]
+    items: [['burger', 2], ['fries', 1], ['coke', 1]],
+    ready: 'false'
   },
   2: {
     id: 2,
     name: 'Sally Seashells',
     phone: '1234567899',
     timestamp: '5:00PM',
-    order: [['pizza', 1], ['hot dog', 1], ['sprite', 1]]
+    items: [['pizza', 1], ['hot dog', 1], ['sprite', 1]],
+    ready: 'true'
   }
 };
 

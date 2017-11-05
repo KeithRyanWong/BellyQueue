@@ -8,7 +8,7 @@ class OrderForm extends React.Component {
       name: "",
       phone: "",
       timestamp: "",
-      order: ""
+      items: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -25,7 +25,7 @@ class OrderForm extends React.Component {
       name: "",
       phone: "",
       timestamp: "",
-      order: ""
+      items: []
     });
   }
 
