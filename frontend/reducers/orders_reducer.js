@@ -1,4 +1,4 @@
-import {RECEIVE_PREORDERS, RECEIVE_PREORDER, REMOVE_PREORDER} from '../actions/preorders_actions.js';
+import {RECEIVE_ORDERS, RECEIVE_ORDER, REMOVE_ORDER} from '../actions/order_actions.js';
 import merge from 'lodash/merge';
 
 const initialState = {
@@ -18,27 +18,27 @@ const initialState = {
   }
 };
 
-const preordersReducer = (state = initialState, action) => {
+const ordersReducer = (state = initialState, action) => {
   Object.freeze(state);
   let nextState;
 
   switch(action.type) {
-    case RECEIVE_PREORDERS:
+    case RECEIVE_ORDERS:
       nextState = {};
-      action.preorders.forEach (preorder => {
-        nextState[preorder.id] = preorder;
+      action.orders.forEach (order => {
+        nextState[order.id] = order;
       });
       return nextState;
-    case RECEIVE_PREORDER:
-      const newPreorder = {[action.preorder.id]: action.preorder};
-      return merge({}, state, newPreorder);
-    case REMOVE_PREORDER:
+    case RECEIVE_ORDER:
+      const neworder = {[action.order.id]: action.order};
+      return merge({}, state, neworder);
+    case REMOVE_ORDER:
       nextState = merge({}, state);
-      delete nextState[action.preorder.id];
+      delete nextState[action.order.id];
       return nextState;
     default:
       return state;
   }
 };
 
-export default preordersReducer;
+export default ordersReducer;
