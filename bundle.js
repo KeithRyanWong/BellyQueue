@@ -29418,17 +29418,23 @@ var _menu_item = __webpack_require__(211);
 
 var _menu_item2 = _interopRequireDefault(_menu_item);
 
+var _selectors = __webpack_require__(75);
+
+var _order_actions = __webpack_require__(33);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import { updateOrder } from '../../actions/menu_actions';
-
 var mapStateToProps = function mapStateToProps(state) {
-  return {};
+  return {
+    order: (0, _selectors.findOrder)(state)
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    // updateOrder: (item) => dispatch(updateOrder(item))
+    receiveOrder: function receiveOrder(order) {
+      return dispatch((0, _order_actions.receiveOrder)(order));
+    }
   };
 };
 
@@ -29467,38 +29473,63 @@ var MenuItem = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (MenuItem.__proto__ || Object.getPrototypeOf(MenuItem)).call(this, props));
 
+    _this.state = {
+      order: props.order
+    };
+
     _this.updateOrder = _this.updateOrder.bind(_this);
     return _this;
   }
 
   _createClass(MenuItem, [{
-    key: 'updateOrder',
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        order: nextProps.order
+      });
+    }
+  }, {
+    key: "updateOrder",
     value: function updateOrder(e) {
       e.preventDefault();
       e.stopPropagation();
 
-      console.log('updating order with: ', this.props.item.name);
+      var item = this.props.item;
+      var order = this.state.order;
+
+
+      if (order.items[item.id]) {
+        order.items[item.id]++;
+      } else {
+        order.items[item.id] = 1;
+      }
+
+      this.setState({
+        order: order
+      });
+
+      this.props.receiveOrder(order);
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var item = this.props.item;
 
       return _react2.default.createElement(
-        'div',
-        { className: 'menu-item' },
+        "div",
+        { className: "menu-item" },
         _react2.default.createElement(
-          'button',
+          "button",
           { onClick: this.updateOrder },
-          '+1 Order'
+          "+1 Order"
         ),
         _react2.default.createElement(
-          'div',
+          "div",
           null,
           item.name
         ),
         _react2.default.createElement(
-          'div',
+          "div",
           null,
           item.price
         )
@@ -29623,6 +29654,8 @@ var _selectors = __webpack_require__(75);
 
 var _order_actions = __webpack_require__(33);
 
+var _current_order_actions = __webpack_require__(191);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -29636,6 +29669,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     receiveOrder: function receiveOrder(order) {
       return dispatch((0, _order_actions.receiveOrder)(order));
+    },
+    logoutOrder: function logoutOrder() {
+      return dispatch((0, _current_order_actions.logoutOrder)());
     }
   };
 };
@@ -29700,7 +29736,9 @@ var MenuTotal = function (_React$Component) {
     }
   }, {
     key: 'submitOrder',
-    value: function submitOrder() {}
+    value: function submitOrder() {
+      this.props.logoutOrder();
+    }
   }, {
     key: 'updateOrder',
     value: function updateOrder(itemId) {

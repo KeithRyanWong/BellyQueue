@@ -23,7 +23,7 @@ class MenuTotal extends React.Component {
   }
 
   submitOrder() {
-
+    this.props.logoutOrder();
   }
 
   updateOrder(itemId) {

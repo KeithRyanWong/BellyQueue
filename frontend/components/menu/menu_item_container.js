@@ -1,12 +1,15 @@
 import { connect } from 'react-redux';
 import MenuItem from './menu_item';
-// import { updateOrder } from '../../actions/menu_actions';
+import { findOrder, parseItems } from '../../reducers/selectors';
+import {receiveOrder} from '../../actions/order_actions';
+
 
 const mapStateToProps = (state) => ({
+  order: findOrder(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // updateOrder: (item) => dispatch(updateOrder(item))
+  receiveOrder: (order) => dispatch(receiveOrder(order)),
 });
 
 export default connect(
