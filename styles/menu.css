@@ -1,0 +1,134 @@
+.menu-container {
+  width: 100vw;
+
+  display: flex;
+}
+
+.menu-side-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-order {
+  background-color: white;
+  border-bottom: 5px solid #989898;
+  padding-bottom: 10px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30;
+  font-weight: bold;
+}
+
+
+.menu-login {
+  display: block;
+
+  height: 100vh;
+  width: 100vw;
+
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  bottom: 0;
+  left: 0;
+
+  z-index: 2;
+  transition: height 400ms ease-out, width 400ms ease-out 100ms;
+}
+
+.menu-login > * {
+  margin: 5px 10px;
+}
+
+.menu-form > div {
+  font-family: Arial;
+  font-size: 23px;
+}
+
+.menu-form > input {
+  width: 90%;
+  height: 30px;
+  font-size: 20px;
+}
+
+.menu-total-display > input {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  background-color: green;
+  border-radius: 53px;
+  border: 1px solid #cccccc;
+  font-weight: 600;
+  padding: 13px 30px;
+  color: white;
+}
+
+.menu-total {
+  background: white;
+  position: relative;
+  z-index: 1;
+}
+
+.menu-total-display {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.menu-total-display > * {
+  margin-top: 5px;
+}
+
+.menu-list {
+  flex: 4;
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  background-color: rgb(16, 16, 17);
+}
+
+.menu-item {
+  /* flex: 1; */
+  
+  width: 200px;
+  height: 140px;
+  margin: 20px 20px;
+  background-color: white;
+
+  border: 1px solid rgb(247, 247, 247);
+  border-radius: 3px;
+}
+
+.menu-item > div {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+
+  width: 200px;
+}
+
+.menu-item > button {
+  float: right;
+  margin: 5px;
+}
+
+.menu-container > div {
+  /* border: 1px solid black; */
+}
+.menu-side-panel > div {
+  /* border: 1px solid black; */
+  border-left: 1px solid white;
+}
+
+

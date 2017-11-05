@@ -7,7 +7,10 @@ const initialState = {
     name: 'Chuck Woodchuck',
     phone: '1234567890',
     timestamp: '5:00PM',
-    items: [['burger', 2], ['fries', 1], ['coke', 1]],
+    items: {
+      52: 2,
+      53: 1 
+    },
     ready: 'false'
   },
   2: {
@@ -15,7 +18,11 @@ const initialState = {
     name: 'Sally Seashells',
     phone: '1234567899',
     timestamp: '5:00PM',
-    items: [['pizza', 1], ['hot dog', 1], ['sprite', 1]],
+    items: {
+      54: 1,
+      53: 1,
+      57: 2
+    },
     ready: 'true'
   }
 };
