@@ -7,3 +7,10 @@ export const findOrder = ({ orders, currentOrder }) => (
     .filter((order) => order.phone === currentOrder.phone)[0] || {}
 );
 
+export const parseItems = ({menu}) => {
+  let items = {};
+  menu.items.forEach((item) => { 
+    items[item.id] = item; 
+  });
+  return items;
+};
