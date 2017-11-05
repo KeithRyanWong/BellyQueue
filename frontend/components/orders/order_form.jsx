@@ -1,5 +1,5 @@
 import React from 'react';
-import {getTimestamp} from '../../util/util';
+// import {getTimestamp} from '../../util/util';
 
 class OrderForm extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class OrderForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newOrder = Object.assign({}, this.state, {timestamp: getTimestamp()});
+    const newOrder = Object.assign({}, this.state, {timestamp: 12});
     this.props.receiveOrder(newOrder);
     this.setState({
       name: "",

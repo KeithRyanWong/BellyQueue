@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import MenuList from './menu_list';
+import MenuItem from './menu_item';
 // import { updateOrder } from '../../actions/menu_actions';
 
 const mapStateToProps = (state) => ({
@@ -12,4 +12,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps, 
   mapDispatchToProps
-)(MenuList);
+)(MenuItem);

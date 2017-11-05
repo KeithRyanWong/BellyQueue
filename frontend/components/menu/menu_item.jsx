@@ -18,10 +18,12 @@ class MenuItem extends React.Component {
     const { item } = this.props;
     return(
       <div className="menu-item">
-        <button onClick={this.updateOrder}></button>
+        <button onClick={this.updateOrder}>+1 Order</button>
         <div>{item.name}</div>
         <div>{item.price}</div>
       </div>
     );
   }
 }
+
+export default MenuItem;
