@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import merge from 'lodash/merge';
 import OrderDetail from './order_detail';
+import { withRouter } from 'react-router';
+import { loginOrder } from '../../actions/current_order_actions';
 
 class OrderItem extends React.Component {
   constructor(props) {
@@ -11,6 +14,7 @@ class OrderItem extends React.Component {
     };
 
     this.handleSend = this.handleSend.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.toggleDetail = this.toggleDetail.bind(this);
     this.renderItem = this.renderItem.bind(this);
   }
@@ -28,6 +32,9 @@ class OrderItem extends React.Component {
 
   handleUpdate(e) {
     e.preventDefault();
+    const {order} = this.props;
+    this.props.login(order.phone);
+    this.props.history.push('/menu');
   }
 
   render() {
@@ -80,4 +87,15 @@ class OrderItem extends React.Component {
   }
 }
 
-export default OrderItem;
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (number) => dispatch(loginOrder(number))
+});
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OrderItem));
