@@ -3,6 +3,7 @@ import PreorderItem from './preorder_item';
 import PreorderForm from './preorder_form';
 
 class Preorders extends React.Component {
+  
   render () {
     const {preorders, receivePreorders, receivePreorder, removePreorder} = this.props;
 
@@ -14,8 +15,10 @@ class Preorders extends React.Component {
       </PreorderItem>
     ));
 
+    
     return (
       <div>
+        Avg wait time is currently {preorderItems.length * 5} min.
         <ul>{preorderItems}</ul>
         <PreorderForm
           receivePreorder={receivePreorder}>

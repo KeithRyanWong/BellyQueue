@@ -42637,6 +42637,9 @@ var Preorders = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
+        'Avg wait time is currently ',
+        preorderItems.length * 5,
+        ' min.',
         _react2.default.createElement(
           'ul',
           null,
