@@ -2,7 +2,7 @@ import { LOGIN, LOGOUT } from '../actions/current_order_actions.js';
 import merge from 'lodash/merge';
 
 const initialState = {
-  phone: '1234567890'
+  phone: ''
 };
 // 1: {
 //     id: 1,
