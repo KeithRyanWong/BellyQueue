@@ -4,11 +4,12 @@ import OrderForm from './order_form';
 
 class OrderList extends React.Component {
   render () {
-    const {orders, menu, receiveOrders, receiveOrder, removeOrder} = this.props;
+    const {user, orders, menu, receiveOrders, receiveOrder, removeOrder} = this.props;
 
     const orderItems = orders.map(order => (
       <OrderItem
         key={`order-${order.id}`}
+        user={user}
         order={order}
         receiveOrder={receiveOrder}
         menu={menu}>

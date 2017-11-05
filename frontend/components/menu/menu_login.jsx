@@ -43,7 +43,7 @@ class MenuLogin extends React.Component {
       <div className="menu-login">
         <div className="menu-form">
           <div>Please queue up at the front desk before signing in to pre-order</div>
-          <div>Phone Number</div>
+          <div>Sign in using your phone Number</div>
           <input name="phoneNumber" type="text" onChange={this.handleInput} placeholder="8881231234" value={phoneNumber}/>
         </div>
         <input type="submit" onClick={this.login} value="Show me the foodz!"/>
