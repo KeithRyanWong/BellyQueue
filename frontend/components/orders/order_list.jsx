@@ -16,6 +16,7 @@ class OrderList extends React.Component {
 
     return (
       <div className="order-container">
+        Avg wait time is currently {orderItems.length * 5} min.
         <ul className="order-list">{orderItems}</ul>
         <OrderForm
           receiveOrder={receiveOrder}>
