@@ -1,0 +1,25 @@
+.menu-container {
+  width: 100vw;
+  background-color: gray;
+
+  display: flex;
+}
+
+.menu-list {
+  flex: 4;
+}
+
+.menu-side-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-container > div {
+  border: 1px solid black;
+}
+.menu-side-panel > div {
+  border: 1px solid black;
+}
+
+
