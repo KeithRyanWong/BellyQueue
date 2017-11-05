@@ -6,11 +6,16 @@ class OrderDetail extends React.Component {
   }
 
   render() {
-    const {order} = this.props;
     return (
       <div className="order-detail">
-        <p>{order.phone}</p>
-        <p>{order.order}</p>
+        <div className="detail-phone">
+          <i className="fa fa-phone" aria-hidden="true"></i>
+          &nbsp;
+          {this.props.order.phone}
+        </div>
+        <div className="detail-order">
+          {this.props.order.items}
+        </div>
       </div>
     );
   }

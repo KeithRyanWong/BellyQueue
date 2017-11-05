@@ -24,6 +24,10 @@ class OrderItem extends React.Component {
     this.props.removeOrder(this.props.order);
   }
 
+  handleUpdate(e) {
+    e.preventDefault();
+  }
+
   render() {
     let detail;
     if (this.state.detail) {
@@ -33,15 +37,26 @@ class OrderItem extends React.Component {
     const {order, removeOrder} = this.props;
 
     return (
-      <li className="order-item">
-        <div>
-          <button
-            className="order-detail-button"
-            onClick={this.toggleDetail}>
-            {order.name}
+      <li className="order-item-container">
+        <div className="order-item-links">
+          <div className="order-detail-button">
             {order.timestamp}
-          </button>
-          <button onClick={this.handleDelete}>Send to Kitchen</button>
+            &nbsp;
+            {order.name}
+            &nbsp;
+            <button
+              onClick={this.toggleDetail}>
+              <i className="fa fa-chevron-down fa-2x" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div className="order-item-actions">
+            <button onClick={this.handleUpdate}>
+              <i className="fa fa-pencil fa-2x" aria-hidden="true"></i>
+            </button>
+            <button onClick={this.handleDelete}>
+              <i className="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
         {detail}
       </li>
