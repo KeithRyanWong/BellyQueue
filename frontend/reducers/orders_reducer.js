@@ -39,8 +39,8 @@ const ordersReducer = (state = initialState, action) => {
       });
       return nextState;
     case RECEIVE_ORDER:
-      const neworder = {[action.order.id]: action.order};
-      return merge({}, state, neworder);
+      const newOrder = {[action.order.id]: action.order};
+      return merge({}, state, newOrder);
     case REMOVE_ORDER:
       nextState = merge({}, state);
       delete nextState[action.order.id];

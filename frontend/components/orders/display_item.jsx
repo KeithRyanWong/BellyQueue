@@ -1,8 +1,7 @@
 import React from 'react';
 import merge from 'lodash/merge';
-import OrderDetail from './order_detail';
 
-class OrderItem extends React.Component {
+class DisplayItem extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,19 +9,12 @@ class OrderItem extends React.Component {
       detail: false
     };
 
-    this.handleSend = this.handleSend.bind(this);
-    this.toggleDetail = this.toggleDetail.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
-  toggleDetail(e) {
+  handleRemove(e) {
     e.preventDefault();
-    this.setState({ detail: !this.state.detail });
-  }
-
-  handleSend(e) {
-    e.preventDefault();
-    const sendOrder = Object.assign({}, this.props.order, {'ready': 'true'});
-    this.props.receiveOrder(sendOrder);
+    this.props.removeOrder(this.props.order);
   }
 
   handleUpdate(e) {
@@ -30,11 +22,6 @@ class OrderItem extends React.Component {
   }
 
   render() {
-    let detail;
-    if (this.state.detail) {
-      detail = <OrderDetail order={this.props.order}/>;
-    }
-
     const {order, removeOrder} = this.props;
 
     return (
@@ -44,25 +31,19 @@ class OrderItem extends React.Component {
             {order.timestamp}
             &nbsp;
             {order.name}
-            &nbsp;
-            <button
-              onClick={this.toggleDetail}>
-              <i className="fa fa-chevron-down fa-2x" aria-hidden="true"></i>
-            </button>
           </div>
           <div className="order-item-actions">
             <button onClick={this.handleUpdate}>
               <i className="fa fa-pencil fa-2x" aria-hidden="true"></i>
             </button>
-            <button onClick={this.handleSend}>
+            <button onClick={this.handleRemove}>
               <i className="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
             </button>
           </div>
         </div>
-        {detail}
       </li>
     );
   }
 }
 
-export default OrderItem;
+export default DisplayItem;

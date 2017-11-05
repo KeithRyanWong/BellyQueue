@@ -8,7 +8,8 @@ class OrderForm extends React.Component {
       name: "",
       phone: "",
       timestamp: "",
-      items: []
+      items: {},
+      ready: "false"
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,13 +20,18 @@ class OrderForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newOrder = Object.assign({}, this.state, {timestamp: 12});
-    this.props.receiveOrder(newOrder);
+    const newOrder = Object.assign({}, this.state, {timestamp: getTimestamp()});
+
+    if (newOrder.name && newOrder.phone) {
+      this.props.receiveOrder(newOrder);
+    }
+
     this.setState({
       name: "",
       phone: "",
       timestamp: "",
-      items: []
+      items: {},
+      ready: "false"
     });
   }
 
@@ -47,7 +53,7 @@ class OrderForm extends React.Component {
           </input>
         </label>
 
-        <button>Queue Up</button>
+        <button className="form-button">Queue Up</button>
       </form>
     );
   }
